@@ -14,7 +14,11 @@ app.use((req, res, next) => {
   var log = `${now}: ${req.method} ${req.url}`
 
   console.log(log)
-  fs.appendFile('server.log', `${log}\n`, (e) => {console.log(e)})
+  fs.appendFile('server.log', `${log}\n`, (e) => {
+    if (e) {
+      console.log(e)
+    }
+  })
   next()
 })
 
@@ -36,6 +40,12 @@ app.get('/', (req, res) => {
   res.render('home.hbs', {
     pageTitle: 'Home Page',
     welcomeMessage: 'Hello World!'
+  })
+})
+
+app.get('/projects', (req, res) => {
+  res.render('projects.hbs', {
+    pageTitle: 'Projects Page'
   })
 })
 
